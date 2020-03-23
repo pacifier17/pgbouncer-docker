@@ -45,10 +45,8 @@ RUN apk --update --no-cache add \
 WORKDIR /etc/pgbouncer
 WORKDIR /var/log/pgbouncer
 
-USER postgres
-
-COPY --from=build_stage --chown=postgres ["/tmp/pgbouncer", "/opt/pgbouncer"]
-COPY --chown=postgres ["entrypoint.sh", "/opt/pgbouncer"]
+COPY --from=build_stage ["/tmp/pgbouncer", "/opt/pgbouncer"]
+COPY ["entrypoint.sh", "/opt/pgbouncer"]
 
 RUN chmod -R 777 /etc/pgbouncer /var/log/pgbouncer /opt/pgbouncer
 
